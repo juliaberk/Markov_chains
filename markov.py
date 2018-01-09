@@ -63,7 +63,15 @@ def make_text(chains):
 
     words = []
 
-    # your code goes here
+    bygram = choice(chains.keys())
+    words.append(bygram)
+
+    while choice(chains[bygram]):
+        new_link = choice(chains[bygram])
+        words.append(new_link)
+
+        print words
+        break
 
     return " ".join(words)
 
