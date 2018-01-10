@@ -41,7 +41,7 @@ def make_chains(text_string):
         >>> chains[('there','juanita')]
         [None]
     """
-
+    # code for bi-gram
     # chains = {}
 
     # words = text_string.split()
@@ -57,10 +57,12 @@ def make_chains(text_string):
 
     # return chains
 
+    # code for tri-gram
     chains = {}
 
     words = text_string.split()
     words.append(None)
+
     ngram = 3
 
     for i in range(len(words)-ngram):
@@ -74,22 +76,34 @@ def make_chains(text_string):
             chains[key].append(words[i+ngram])
         else:
             chains[key] = [words[i + ngram]]
-    # print chains
+
     return chains
 
 
 def make_text(chains):
     """Return text from chains."""
 
-    bygram = choice(chains.keys())
+    #bygram = sorted(chains)[0]
+
+    while True:
+        bygram = choice(chains.keys())
+
+        if bygram[0][0].isupper():
+            break
 
     words = list(bygram)
 
     while choice(chains[bygram]):
         # words.extend([bygram[0], bygram[1]])
         new_word = choice(chains[bygram])
+        if new_word is None:
+            break
         words.append(new_word)
 
+        # resetting for bi-gram
+        # bygram = (bygram[1], new_word)
+
+        # resetting for tri-gram
         bygram = (bygram[1], bygram[2], new_word)
 
     return " ".join(words)
