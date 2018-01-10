@@ -12,8 +12,8 @@ def open_and_read_file(file_path):
     """
 
     # your code goes here
-    f = open(file_path)
-    return f.read()
+    with open(file_path) as f:
+        return f.read()
     #return "Contents of your file as one long string"
 
 
@@ -65,10 +65,11 @@ def make_text(chains):
     words = list(bygram)
 
     while choice(chains[bygram]):
-        new_link = choice(chains[bygram])
-        words.append(new_link)
+        # words.extend([bygram[0], bygram[1]])
+        new_word = choice(chains[bygram])
+        words.append(new_word)
 
-        bygram = (bygram[1], new_link)
+        bygram = (bygram[1], new_word)
 
     return " ".join(words)
 
