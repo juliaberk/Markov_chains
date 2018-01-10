@@ -61,17 +61,14 @@ def make_chains(text_string):
 def make_text(chains):
     """Return text from chains."""
 
-    words = []
-
     bygram = choice(chains.keys())
-    words.append(bygram)
+    words = list(bygram)
 
     while choice(chains[bygram]):
         new_link = choice(chains[bygram])
         words.append(new_link)
 
-        print words
-        break
+        bygram = (bygram[1], new_link)
 
     return " ".join(words)
 
@@ -88,4 +85,4 @@ chains = make_chains(input_text)
 # Produce random text
 random_text = make_text(chains)
 
-#print random_text
+print random_text
