@@ -42,19 +42,39 @@ def make_chains(text_string):
         [None]
     """
 
+    # chains = {}
+
+    # words = text_string.split()
+    # words.append(None)
+
+    # for i in range(len(words)-2):
+    #     key = (words[i], words[i+1])
+
+    #     if chains.get(key):
+    #         chains[key].append(words[i+2])
+    #     else:
+    #         chains[key] = [words[i+2]]
+
+    # return chains
+
     chains = {}
 
     words = text_string.split()
     words.append(None)
+    ngram = 3
 
-    for i in range(len(words)-2):
-        key = (words[i], words[i+1])
+    for i in range(len(words)-ngram):
+        key = []
+
+        for j in range(ngram):
+            key.append(words[i+j])
+        key = tuple(key)
 
         if chains.get(key):
-            chains[key].append(words[i+2])
+            chains[key].append(words[i+ngram])
         else:
-            chains[key] = [words[i+2]]
-
+            chains[key] = [words[i + ngram]]
+    # print chains
     return chains
 
 
@@ -62,6 +82,7 @@ def make_text(chains):
     """Return text from chains."""
 
     bygram = choice(chains.keys())
+
     words = list(bygram)
 
     while choice(chains[bygram]):
@@ -69,7 +90,7 @@ def make_text(chains):
         new_word = choice(chains[bygram])
         words.append(new_word)
 
-        bygram = (bygram[1], new_word)
+        bygram = (bygram[1], bygram[2], new_word)
 
     return " ".join(words)
 
