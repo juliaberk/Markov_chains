@@ -2,6 +2,7 @@
 
 from random import choice
 import sys
+import string
 
 
 def open_and_read_file(file_path):
@@ -85,6 +86,8 @@ def make_text(chains):
 
     #bygram = sorted(chains)[0]
 
+    punct = string.punctuation
+
     while True:
         bygram = choice(chains.keys())
 
@@ -96,9 +99,14 @@ def make_text(chains):
     while choice(chains[bygram]):
         # words.extend([bygram[0], bygram[1]])
         new_word = choice(chains[bygram])
+
         if new_word is None:
             break
+
         words.append(new_word)
+
+        if new_word[-1] in punct:
+            break
 
         # resetting for bi-gram
         # bygram = (bygram[1], new_word)
